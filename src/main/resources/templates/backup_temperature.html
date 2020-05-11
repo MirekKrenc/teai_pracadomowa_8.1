@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" http-equiv="refresh" content="5">
+    <title>Warsaw temperature chart</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+<h1>Warsaw temperature chart</h1>
+
+<div id="container" style="width:100%; height:400px;"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // var timestamp = [[${temperatureMap.keySet()}]];
+        // console.log('Timestamp ' + timestamp );
+        // var timestamptable = timestamp.replace(/&quot;/g, '\'');
+        // var timestamp = timestamp.replace(/|/g, ':');
+        // console.log(timestamp);
+
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Temperature in Warsaw'
+            },
+            xAxis: {
+                categories: [[${temperatureMap.keySet()}]],
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature'
+                }
+            },
+            series: [{
+                name: 'Temperature',
+                data: [[${temperatureMap.values()}]]
+                // data: [0.13, -16.72, 30.18]
+            }]
+        });
+        console.log(myChart);
+    });
+
+    function htmlDecode(input){
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+</script>
+
+</body>
+</html>
